@@ -1,0 +1,56 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class Main {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setSize(400,800);
+
+        GameScreen screen = new GameScreen();
+        EndScreen endScreen = new EndScreen();
+        
+        boolean isGameOver = false;
+        
+        screen.setBackground(new Color(187, 193, 193));
+        endScreen.setBackground(new Color(187, 193, 193));
+
+        frame.add(screen);
+        
+        frame.setVisible(true);
+        
+        while (true) {
+            System.out.println(screen.shouldEnd);
+            if (screen.shouldEnd && !isGameOver) {
+                frame.remove(screen);
+                frame.revalidate();
+                frame.repaint();
+
+                endScreen.points = "" + GameScreen.points;
+                frame.add(endScreen);
+                frame.revalidate();
+                frame.repaint();
+        
+                isGameOver = true;
+            }
+            
+            if (isGameOver) {
+                System.out.println("" + endScreen.shouldRestart);
+                if (endScreen.shouldRestart) {
+                    screen.shouldEnd = false;
+                    isGameOver = false;
+                    
+                    frame.remove(endScreen);
+                    frame.revalidate();
+                    frame.repaint();
+
+                    endScreen.points = "0";
+                    screen.points = 0;
+                    screen.timer = 5.0;
+                    frame.add(screen);
+                    frame.revalidate();
+                    frame.repaint();
+                }
+            }
+        }
+    }
+}
