@@ -1,0 +1,36 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class EndScreen extends JPanel {
+    public String points = "0";
+    public boolean shouldRestart = false;
+    
+    public EndScreen() {
+        setFocusable(true);
+
+        
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                System.out.println(e.getKeyChar());
+                if(e.getKeyCode() == 82){
+                    shouldRestart = true;
+                }
+            }
+        });
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        g.setColor(Color.WHITE);
+        g.drawRect(100,350,200,100);
+        g.setColor(Color.BLACK);
+        g.drawString("GAME OVER     Your score: " + points + "     Your Highscore: " + points, 10,100);
+
+    }
+
+    
+}
